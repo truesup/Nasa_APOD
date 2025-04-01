@@ -1,0 +1,20 @@
+.loaderText {
+  font-family: var(--font-family-regular);
+  font-size: 24px;
+  color: var(--color-white);
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.blinkingText {
+  animation: blink 1.7s infinite;
+}

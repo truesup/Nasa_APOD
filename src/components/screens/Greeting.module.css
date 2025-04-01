@@ -3,7 +3,10 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
-  /* border: 1px solid white; */
+  transition: opacity 0.6s ease-in-out;
+}
+.wrapperHidden {
+  opacity: 0;
 }
 .title,
 .titleEncrypted {
@@ -41,4 +44,9 @@
     background-color: var(--color-white);
     color: var(--color-black);
   }
+}
+.loader {
+  position: absolute;
+  bottom: 40px;
+  right: 80px;
 }

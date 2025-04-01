@@ -6,7 +6,7 @@ export default function GlobalLoadingProvider({ children }) {
 
   return (
     <GlobalLoadingContext.Provider
-      value={(isGloballyLoading, setIsGloballyLoading)}>
+      value={{ isGloballyLoading, setIsGloballyLoading }}>
       {children}
     </GlobalLoadingContext.Provider>
   )
