@@ -22,6 +22,7 @@
   padding: 0;
   font-size: 40px;
   border: none;
+  /* border: 1px solid var(--color-white); */
   outline: none;
   border-radius: 50%;
   display: flex;
@@ -29,8 +30,7 @@
   justify-content: center;
   background-color: transparent;
   color: var(--color-white);
-  transform: translateY(2px);
-  transform: translateX(30px);
+  transform: translate(30px, 2px);
   cursor: pointer;
   opacity: 0;
   transition: color 0.2s ease, background-color 0.2s ease, opacity 0.6s ease,
