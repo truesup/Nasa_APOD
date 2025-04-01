@@ -1,9 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
+import { NavigationContext } from '../../contexts/NavigationContext'
 import DecryptedText from '../bits/DecryptedText'
 import styles from './Greeting.module.css'
 
 export default function Greeting() {
   const buttonRef = useRef(null)
+  const { goToNext } = useContext(NavigationContext)
 
   useEffect(() => {
     console.log('Navigation note: Greeting component rendered!')
@@ -15,7 +17,7 @@ export default function Greeting() {
         buttonRef.current.style.opacity = 1
         buttonRef.current.classList.add(styles.roundBtnPositioned)
       }
-    }, 1600)
+    }, 1700)
 
     return () => clearTimeout(timer)
   }, [])
@@ -33,7 +35,7 @@ export default function Greeting() {
         className={styles.title}
         encryptedClassName={styles.titleEncrypted}
       />
-      <button ref={buttonRef} className={styles.roundBtn}>
+      <button ref={buttonRef} className={styles.roundBtn} onClick={goToNext}>
         →
       </button>
     </div>
