@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  /* border: 1px solid white; */
+}
+.title {
+  font-family: var(--font-family-accent);
+  text-transform: capitalize;
+  font-size: 46px;
+  color: var(--color-white);
+}
+.roundBtn {
+  height: 69px;
+  aspect-ratio: 1;
+  margin: 0;
+  padding: 0;
+  font-size: 40px;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--color-white);
+  transform: translateY(2px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+@media (hover: hover) {
+  .roundBtn:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+}

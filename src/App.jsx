@@ -1,4 +1,5 @@
 import Particles from './components/bits/Particles'
+import Greeting from './components/screens/Greeting'
 import styles from './App.module.css'
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
       </div>
       <div className={styles.contentWrapper}>
         {/* тут идут компоненты с контентом */}
+        <Greeting />
       </div>
     </>
   )

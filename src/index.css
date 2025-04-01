@@ -1,6 +1,6 @@
 /* fonts */
 @font-face {
-  font-family: 'MajorMonoDisplay';
+  font-family: 'Major Mono Display';
   src: url('/fonts/MajorMonoDisplay.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
@@ -72,7 +72,7 @@ body {
   --color-black: #101011;
   --color-white: #fff;
 
-  --font-family-accent: 'MajorMonoDisplay', monospace;
+  --font-family-accent: 'Major Mono Display', monospace;
   --font-family-regular: 'VT323', sans-serif;
 }
 /* common */

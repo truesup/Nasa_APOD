@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { GlobalLoadingProvider } from './contexts/GlobalLoadingProvider.jsx'
+import GlobalLoadingProvider from './contexts/GlobalLoadingProvider'
 import './index.css'
 import App from './App.jsx'
 
