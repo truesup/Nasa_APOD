@@ -10,6 +10,9 @@
 .wrapperVisible {
   opacity: 1;
 }
+.wrapperHidden {
+  opacity: 0;
+}
 .titleWrapper {
   display: flex;
   align-items: center;
@@ -76,4 +79,9 @@
     background-color: var(--color-white);
     color: var(--color-black);
   }
+}
+.loader {
+  position: absolute;
+  bottom: 40px;
+  right: 80px;
 }

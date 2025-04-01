@@ -12,13 +12,13 @@ export default function Greeting() {
   const { isGloballyLoading, setIsGloballyLoading } =
     useContext(GlobalLoadingContext)
 
-  // useEffect(() => {
-  //   console.log('Navigation note: Greeting component rendered!')
-  // }, [])
+  useEffect(() => {
+    console.log('Navigation note: Greeting component rendered!')
+  }, [])
 
-  // useEffect(() => {
-  //   console.log(`loading state: ${isGloballyLoading}`)
-  // }, [isGloballyLoading])
+  useEffect(() => {
+    console.log(`loading state: ${isGloballyLoading}`)
+  }, [isGloballyLoading])
 
   useEffect(() => {
     const timer = setTimeout(() => {
