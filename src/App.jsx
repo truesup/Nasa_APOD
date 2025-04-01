@@ -10,15 +10,15 @@ export default function App() {
           particleColors={['#ffffff', '#ffffff']}
           particleCount={1000}
           particleSpread={30}
-          speed={0.1}
+          speed={0.04}
           particleBaseSize={140}
           moveParticlesOnHover={false}
           alphaParticles={false}
-          disableRotation={true}
+          disableRotation={false}
         />
       </div>
       <div className={styles.contentWrapper}>
-        {/* тут идут компоненты с контентом */}
+        {/* тут идут компоненты с контентом, они же screens */}
         <Greeting />
       </div>
     </>
