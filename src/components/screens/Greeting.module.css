@@ -5,7 +5,8 @@
   gap: 20px;
   /* border: 1px solid white; */
 }
-.title {
+.title,
+.titleEncrypted {
   font-family: var(--font-family-accent);
   text-transform: capitalize;
   font-size: 46px;
@@ -26,8 +27,14 @@
   background-color: transparent;
   color: var(--color-white);
   transform: translateY(2px);
+  transform: translateX(30px);
   cursor: pointer;
-  transition: all 0.2s ease;
+  opacity: 0;
+  transition: color 0.2s ease, background-color 0.2s ease, opacity 0.6s ease,
+    transform 0.6s ease-in-out;
+}
+.roundBtnPositioned {
+  transform: translateX(0);
 }
 @media (hover: hover) {
   .roundBtn:hover {
