@@ -9,6 +9,9 @@
 .mainWrapperVisible {
   opacity: 1;
 }
+.mainWrapperHidden {
+  opacity: 0;
+}
 .title,
 .titleEncrypted {
   font-family: var(--font-family-accent);
@@ -87,4 +90,9 @@
 }
 .shown {
   opacity: 1;
+}
+.loader {
+  position: absolute;
+  bottom: 40px;
+  right: 80px;
 }

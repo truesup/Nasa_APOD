@@ -1,5 +1,8 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useContext } from 'react'
+import { NavigationContext } from '../../contexts/NavigationContext'
+import { GlobalLoadingContext } from '../../contexts/GlobalLoadingContext'
 import DecryptedText from '../bits/DecryptedText'
+import GlobalLoader from '../UI/GlobalLoader'
 import styles from './PickDate.module.css'
 
 export default function PickDate() {
@@ -8,6 +11,9 @@ export default function PickDate() {
   const [day, setDay] = useState('')
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
+  const { goToNext } = useContext(NavigationContext)
+  const { isGloballyLoading, setIsGloballyLoading } =
+    useContext(GlobalLoadingContext)
 
   useEffect(() => {
     if (mainWrapperRef.current) {
@@ -18,17 +24,12 @@ export default function PickDate() {
       if (infoWrapperRef.current) {
         infoWrapperRef.current.classList.add(styles.infoWrapperVisible)
       }
-    }, 4000)
+    }, 3800)
 
     return () => clearTimeout(infoTimer)
   }, [])
 
   const today = new Date().toLocaleDateString('en-GB')
-
-  const handleFormSubmit = e => {
-    e.preventDefault()
-    console.log('form is submitted')
-  }
 
   const handleDayInputChange = e => {
     const value = e.target.value
@@ -60,72 +61,95 @@ export default function PickDate() {
     setYear(value)
   }
 
+  const handleFormSubmit = e => {
+    e.preventDefault()
+
+    if (mainWrapperRef.current) {
+      mainWrapperRef.current.classList.add(styles.mainWrapperHidden)
+    }
+
+    setIsGloballyLoading(true)
+
+    setTimeout(() => {
+      goToNext()
+      setIsGloballyLoading(false)
+    }, 3000)
+  }
+
   return (
-    <div ref={mainWrapperRef} className={styles.wrapper}>
-      <DecryptedText
-        text="enter a date and access the cosmic snapshot nasa archived on that day."
-        speed={50}
-        maxIterations={40}
-        sequential={true}
-        revealDirection="start"
-        useOriginalCharsOnly={false}
-        animateOn="view"
-        className={styles.title}
-        encryptedClassName={styles.titleEncrypted}
-      />
-      <div ref={infoWrapperRef} className={styles.inputsWrapper}>
-        <p className={styles.timeRange}>
-          Available range: from 16/06/1995 to {today}
-        </p>
-        <p className={styles.inputsTitle}>Enter your date here (DD/MM/YYYY):</p>
-        <form className={styles.form} onSubmit={handleFormSubmit}>
-          <div className={styles.onlyInputsWrapper}>
-            <div className={styles.oneInputWrapper}>
-              <label htmlFor="day" className={styles.label}>
-                Day -
-              </label>
-              <input
-                id="day"
-                type="text"
-                value={day}
-                onChange={handleDayInputChange}
-                maxLength={2}
-                className={styles.input}
-                required
-              />
+    <>
+      <div ref={mainWrapperRef} className={styles.wrapper}>
+        <DecryptedText
+          text="enter a date and access the cosmic snapshot nasa archived on that day."
+          speed={50}
+          maxIterations={40}
+          sequential={true}
+          revealDirection="start"
+          useOriginalCharsOnly={false}
+          animateOn="view"
+          className={styles.title}
+          encryptedClassName={styles.titleEncrypted}
+        />
+        <div ref={infoWrapperRef} className={styles.inputsWrapper}>
+          <p className={styles.timeRange}>
+            Available range: from 16/06/1995 to {today}
+          </p>
+          <p className={styles.inputsTitle}>
+            Enter your date here (DD/MM/YYYY):
+          </p>
+          <form className={styles.form} onSubmit={handleFormSubmit}>
+            <div className={styles.onlyInputsWrapper}>
+              <div className={styles.oneInputWrapper}>
+                <label htmlFor="day" className={styles.label}>
+                  Day -
+                </label>
+                <input
+                  id="day"
+                  type="text"
+                  value={day}
+                  onChange={handleDayInputChange}
+                  maxLength={2}
+                  className={styles.input}
+                  autoComplete="off"
+                  required
+                />
+              </div>
+              <div className={styles.oneInputWrapper}>
+                <label htmlFor="month" className={styles.label}>
+                  Month -
+                </label>
+                <input
+                  id="month"
+                  type="text"
+                  value={month}
+                  onChange={handleMonthInputChange}
+                  maxLength={2}
+                  className={styles.input}
+                  autoComplete="off"
+                  required
+                />
+              </div>
+              <div className={styles.oneInputWrapper}>
+                <label htmlFor="year" className={styles.label}>
+                  Year -
+                </label>
+                <input
+                  id="year"
+                  type="text"
+                  value={year}
+                  onChange={handleYearInputChange}
+                  maxLength={4}
+                  className={styles.input}
+                  autoComplete="off"
+                  required
+                />
+              </div>
             </div>
-            <div className={styles.oneInputWrapper}>
-              <label htmlFor="month" className={styles.label}>
-                Month -
-              </label>
-              <input
-                id="month"
-                type="text"
-                value={month}
-                onChange={handleMonthInputChange}
-                maxLength={2}
-                className={styles.input}
-                required
-              />
-            </div>
-            <div className={styles.oneInputWrapper}>
-              <label htmlFor="year" className={styles.label}>
-                Year -
-              </label>
-              <input
-                id="year"
-                type="text"
-                value={year}
-                onChange={handleYearInputChange}
-                maxLength={4}
-                className={styles.input}
-                required
-              />
-            </div>
-          </div>
-          <button className={styles.submitBtn}>Submit the date</button>
-        </form>
+            <button className={styles.submitBtn}>Submit the date</button>
+          </form>
+        </div>
       </div>
-    </div>
+      {isGloballyLoading && <GlobalLoader className={styles.loader} />}
+    </>
   )
 }

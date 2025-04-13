@@ -13,14 +13,6 @@ export default function Greeting() {
     useContext(GlobalLoadingContext)
 
   useEffect(() => {
-    console.log('Navigation note: Greeting component rendered!')
-  }, [])
-
-  useEffect(() => {
-    console.log(`loading state: ${isGloballyLoading}`)
-  }, [isGloballyLoading])
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       if (buttonRef.current) {
         buttonRef.current.style.opacity = 1

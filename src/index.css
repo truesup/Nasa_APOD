@@ -76,6 +76,9 @@ body {
   --font-family-regular: 'VT323', sans-serif;
 }
 /* common */
+* {
+  user-select: none;
+}
 #root {
   width: 100dvw;
   height: 100dvh;
