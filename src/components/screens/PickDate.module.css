@@ -11,3 +11,65 @@
   font-size: 46px;
   color: var(--color-white);
 }
+.form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.inputsWrapper {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.inputsTitle,
+.label,
+.timeRange {
+  font-family: var(--font-family-regular);
+  font-size: 32px;
+  color: var(--color-white);
+}
+.onlyInputsWrapper {
+  display: flex;
+  gap: 80px;
+}
+.oneInputWrapper {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.input,
+.submitBtn {
+  font-family: var(--font-family-regular);
+  color: var(--color-black);
+  height: 32px;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  text-align: center;
+}
+.input {
+  font-size: 30px;
+  max-width: 80px;
+}
+.input:focus {
+  border: none;
+  outline: none;
+}
+.submitBtn {
+  padding-inline: 20px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+@media (hover: hover) {
+  .submitBtn:hover {
+    scale: 1.02;
+  }
+}

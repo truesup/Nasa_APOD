@@ -7,13 +7,41 @@ export default function PickDate() {
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
 
-  const handleDayInputChange = e => {
-    setDay(e.target.value)
-  }
+  const today = new Date().toLocaleDateString('en-GB')
 
   const handleFormSubmit = e => {
     e.preventDefault()
-    console.log('form submitted manually')
+    console.log('form is submitted')
+  }
+
+  const handleDayInputChange = e => {
+    const value = e.target.value
+    if (/^\d*$/.test(value)) {
+      if (+value > 31) return
+      setDay(value)
+    }
+  }
+
+  const handleMonthInputChange = e => {
+    const value = e.target.value
+    if (/^\d*$/.test(value)) {
+      if (+value > 12) return
+      setMonth(value)
+    }
+  }
+
+  const handleYearInputChange = e => {
+    const value = e.target.value
+    const currentYear = new Date().getFullYear()
+
+    if (!/^\d*$/.test(value)) return
+
+    if (value.length === 1 && value !== '1' && value !== '2') return
+    if (value.length === 2 && value !== '19' && value !== '20') return
+    if (value.length === 3 && !/^19\d|20\d$/.test(value)) return
+    if (value.length === 4 && (+value < 1995 || +value > currentYear)) return
+
+    setYear(value)
   }
 
   return (
@@ -30,15 +58,56 @@ export default function PickDate() {
         encryptedClassName={styles.titleEncrypted}
       />
       <div className={styles.inputsWrapper}>
-        <p className={styles.inputsTitle}>The date goes here (DD.MM.YYYY):</p>
-        <form onSubmit={handleFormSubmit}>
-          <label htmlFor="day">Day -</label>
-          <input
-            id="day"
-            type="number"
-            onChange={handleDayInputChange}
-            required
-          />
+        <p className={styles.timeRange}>
+          Available range: from 16/06/1995 to {today}
+        </p>
+        <p className={styles.inputsTitle}>Enter your date here (DD/MM/YYYY):</p>
+        <form className={styles.form} onSubmit={handleFormSubmit}>
+          <div className={styles.onlyInputsWrapper}>
+            <div className={styles.oneInputWrapper}>
+              <label htmlFor="day" className={styles.label}>
+                Day -
+              </label>
+              <input
+                id="day"
+                type="text"
+                value={day}
+                onChange={handleDayInputChange}
+                maxLength={2}
+                className={styles.input}
+                required
+              />
+            </div>
+            <div className={styles.oneInputWrapper}>
+              <label htmlFor="month" className={styles.label}>
+                Month -
+              </label>
+              <input
+                id="month"
+                type="text"
+                value={month}
+                onChange={handleMonthInputChange}
+                maxLength={2}
+                className={styles.input}
+                required
+              />
+            </div>
+            <div className={styles.oneInputWrapper}>
+              <label htmlFor="year" className={styles.label}>
+                Year -
+              </label>
+              <input
+                id="year"
+                type="text"
+                value={year}
+                onChange={handleYearInputChange}
+                maxLength={4}
+                className={styles.input}
+                required
+              />
+            </div>
+          </div>
+          <button className={styles.submitBtn}>Submit the date</button>
         </form>
       </div>
     </div>
