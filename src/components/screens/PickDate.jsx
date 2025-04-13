@@ -1,11 +1,27 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import DecryptedText from '../bits/DecryptedText'
 import styles from './PickDate.module.css'
 
 export default function PickDate() {
+  const mainWrapperRef = useRef(null)
+  const infoWrapperRef = useRef(null)
   const [day, setDay] = useState('')
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
+
+  useEffect(() => {
+    if (mainWrapperRef.current) {
+      mainWrapperRef.current.classList.add(styles.mainWrapperVisible)
+    }
+
+    const infoTimer = setTimeout(() => {
+      if (infoWrapperRef.current) {
+        infoWrapperRef.current.classList.add(styles.infoWrapperVisible)
+      }
+    }, 4000)
+
+    return () => clearTimeout(infoTimer)
+  }, [])
 
   const today = new Date().toLocaleDateString('en-GB')
 
@@ -45,10 +61,10 @@ export default function PickDate() {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div ref={mainWrapperRef} className={styles.wrapper}>
       <DecryptedText
         text="enter a date and access the cosmic snapshot nasa archived on that day."
-        speed={70}
+        speed={50}
         maxIterations={40}
         sequential={true}
         revealDirection="start"
@@ -57,7 +73,7 @@ export default function PickDate() {
         className={styles.title}
         encryptedClassName={styles.titleEncrypted}
       />
-      <div className={styles.inputsWrapper}>
+      <div ref={infoWrapperRef} className={styles.inputsWrapper}>
         <p className={styles.timeRange}>
           Available range: from 16/06/1995 to {today}
         </p>

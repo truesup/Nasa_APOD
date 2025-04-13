@@ -14,14 +14,6 @@ export default function HowTo() {
     useContext(GlobalLoadingContext)
 
   useEffect(() => {
-    console.log('Navigation note: HowTo component rendered!')
-  }, [])
-
-  useEffect(() => {
-    console.log(`loading state: ${isGloballyLoading}`)
-  }, [isGloballyLoading])
-
-  useEffect(() => {
     if (mainWrapperRef.current) {
       mainWrapperRef.current.classList.add(styles.wrapperVisible)
     }
