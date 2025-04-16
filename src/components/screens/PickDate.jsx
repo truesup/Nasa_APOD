@@ -15,7 +15,7 @@ export default function PickDate() {
   const { goToNext } = useContext(NavigationContext)
   const { isGloballyLoading, setIsGloballyLoading } =
     useContext(GlobalLoadingContext)
-  const { selectedDate, setSelectedDate } = useContext(NasaContext)
+  const { setSelectedDate } = useContext(NasaContext)
 
   useEffect(() => {
     if (mainWrapperRef.current) {
