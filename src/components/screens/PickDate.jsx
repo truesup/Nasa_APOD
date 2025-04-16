@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react'
 import { NavigationContext } from '../../contexts/NavigationContext'
 import { GlobalLoadingContext } from '../../contexts/GlobalLoadingContext'
+import { NasaContext } from '../../contexts/NasaContext'
 import DecryptedText from '../bits/DecryptedText'
 import GlobalLoader from '../UI/GlobalLoader'
 import styles from './PickDate.module.css'
@@ -14,6 +15,7 @@ export default function PickDate() {
   const { goToNext } = useContext(NavigationContext)
   const { isGloballyLoading, setIsGloballyLoading } =
     useContext(GlobalLoadingContext)
+  const { selectedDate, setSelectedDate } = useContext(NasaContext)
 
   useEffect(() => {
     if (mainWrapperRef.current) {
@@ -64,6 +66,11 @@ export default function PickDate() {
   const handleFormSubmit = e => {
     e.preventDefault()
 
+    const dd = day.padStart(2, '0')
+    const mm = month.padStart(2, '0')
+    const yyyy = year
+    setSelectedDate(`${yyyy}-${mm}-${dd}`)
+
     if (mainWrapperRef.current) {
       mainWrapperRef.current.classList.add(styles.mainWrapperHidden)
     }
@@ -109,6 +116,8 @@ export default function PickDate() {
                   value={day}
                   onChange={handleDayInputChange}
                   maxLength={2}
+                  pattern="\d{1,2}"
+                  title="Enter 1 or 2 digits"
                   className={styles.input}
                   autoComplete="off"
                   required
@@ -124,6 +133,8 @@ export default function PickDate() {
                   value={month}
                   onChange={handleMonthInputChange}
                   maxLength={2}
+                  pattern="\d{1,2}"
+                  title="Enter 1 or 2 digits"
                   className={styles.input}
                   autoComplete="off"
                   required
@@ -139,13 +150,25 @@ export default function PickDate() {
                   value={year}
                   onChange={handleYearInputChange}
                   maxLength={4}
+                  title="Enter 4 digits"
+                  pattern="\d{4}"
                   className={styles.input}
                   autoComplete="off"
                   required
                 />
               </div>
             </div>
-            <button className={styles.submitBtn}>Submit the date</button>
+            <button
+              className={styles.submitBtn}
+              disabled={
+                !(
+                  /^\d{1,2}$/.test(day) &&
+                  /^\d{1,2}$/.test(month) &&
+                  /^\d{4}$/.test(year)
+                )
+              }>
+              Submit the date
+            </button>
           </form>
         </div>
       </div>
