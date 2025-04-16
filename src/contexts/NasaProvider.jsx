@@ -7,6 +7,8 @@ export default function NasaProvider({ children }) {
   const [nasaData, setNasaData] = useState(null)
 
   useEffect(() => {
+    if (!selectedDate) return
+
     const getData = async () => {
       try {
         const response = await fetchNasaData(selectedDate)
@@ -19,9 +21,9 @@ export default function NasaProvider({ children }) {
     getData()
   }, [selectedDate])
 
-  useEffect(() => {
-    console.log('me nasa data: ', nasaData)
-  }, [nasaData])
+  // useEffect(() => {
+  //   console.log('me nasa data: ', nasaData)
+  // }, [nasaData])
 
   return (
     <NasaContext.Provider
@@ -30,8 +32,6 @@ export default function NasaProvider({ children }) {
         setSelectedDate,
         nasaData,
         setNasaData,
-        error,
-        setError,
       }}>
       {children}
     </NasaContext.Provider>
