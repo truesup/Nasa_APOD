@@ -49,15 +49,19 @@ export default function Final() {
           <p className={styles.dateType}>
             Day - <span className={styles.dateSpan}>{day}</span>
           </p>
+          |
           <p className={styles.dateType}>
             Month - <span className={styles.dateSpan}>{monthName}</span>
           </p>
+          |
           <p className={styles.dateType}>
             Year - <span className={styles.dateSpan}>{year}</span>
           </p>
         </div>
         <p className={styles.explanation}>{nasaData.explanation}</p>
-        <button className={styles.newDateBtn}>Try another date</button>
+        <div className={styles.btnWrapper}>
+          <button className={styles.newDateBtn}>Try another date</button>
+        </div>
       </div>
       <div className={styles.photoWrapper}>none</div>
     </div>
