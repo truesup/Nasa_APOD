@@ -28,6 +28,7 @@ export default function Final() {
   const { isGloballyLoading, setIsGloballyLoading } =
     useContext(GlobalLoadingContext)
   const [modalOpen, setModalOpen] = useState(false)
+  const [isImgLoading, setIsImgLoading] = useState(true)
 
   useEffect(() => {
     if (mainWrapperRef.current) {
@@ -48,9 +49,11 @@ export default function Final() {
 
   const imgSrc = nasaData.hdurl || nasaData.url
 
-  const handlePickOtherDate = () => {
-    console.log('button clicked')
+  useEffect(() => {
+    setIsImgLoading(true)
+  }, [imgSrc])
 
+  const handlePickOtherDate = () => {
     if (mainWrapperRef.current) {
       mainWrapperRef.current.classList.add(styles.mainWrapperHidden)
     }
@@ -91,6 +94,10 @@ export default function Final() {
           </div>
         </div>
         <div className={styles.photoWrapper}>
+          {isImgLoading && (
+            <p className={styles.imgLoader}>Your image is loading...</p>
+          )}
+
           {nasaData.media_type === 'video' ? (
             <iframe
               title={nasaData.title}
@@ -103,6 +110,7 @@ export default function Final() {
           ) : (
             <img
               src={imgSrc}
+              onLoad={() => setIsImgLoading(false)}
               alt={nasaData.title}
               className={styles.media}
               onClick={() => setModalOpen(true)}
