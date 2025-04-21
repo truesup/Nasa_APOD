@@ -1,5 +1,6 @@
 import { useContext, useMemo, useState } from 'react'
 import { NasaContext } from '../../contexts/NasaContext'
+import { NavigationContext } from '../../contexts/NavigationContext'
 import styles from './Final.module.css'
 
 const MONTH_NAMES = [
@@ -20,6 +21,7 @@ const MONTH_NAMES = [
 export default function Final() {
   const { selectedDate, setSelectedDate, nasaData, setNasaData } =
     useContext(NasaContext)
+  const { goToPrev } = useContext(NavigationContext)
   const [modalOpen, setModalOpen] = useState(false)
 
   const { day, monthName, year } = useMemo(() => {
@@ -34,6 +36,13 @@ export default function Final() {
   }, [selectedDate])
 
   const imgSrc = nasaData.hdurl || nasaData.url
+
+  const handlePickOtherDate = () => {
+    console.log('button clicked')
+    goToPrev()
+    setSelectedDate(null)
+    setNasaData(null)
+  }
 
   return (
     <>
@@ -55,7 +64,9 @@ export default function Final() {
           </div>
           <p className={styles.explanation}>{nasaData.explanation}</p>
           <div className={styles.btnWrapper}>
-            <button className={styles.newDateBtn}>Try another date</button>
+            <button className={styles.newDateBtn} onClick={handlePickOtherDate}>
+              Try another date
+            </button>
           </div>
         </div>
         <div className={styles.photoWrapper}>

@@ -21,10 +21,6 @@ export default function NasaProvider({ children }) {
     getData()
   }, [selectedDate])
 
-  // useEffect(() => {
-  //   console.log('me nasa data: ', nasaData)
-  // }, [nasaData])
-
   return (
     <NasaContext.Provider
       value={{
