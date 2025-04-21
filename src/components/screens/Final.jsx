@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect, useMemo } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { NasaContext } from '../../contexts/NasaContext'
 import styles from './Final.module.css'
 
@@ -20,6 +20,7 @@ const MONTH_NAMES = [
 export default function Final() {
   const { selectedDate, setSelectedDate, nasaData, setNasaData } =
     useContext(NasaContext)
+  const [modalOpen, setModalOpen] = useState(false)
 
   const { day, monthName, year } = useMemo(() => {
     if (!selectedDate) return { day: '', monthName: '', year: '' }
@@ -32,38 +33,70 @@ export default function Final() {
     }
   }, [selectedDate])
 
-  // copyright: 'Paul Schmit'
-  // date: '2020-02-20'
-  // explanation: "On February 18, as civil twilight began in northern New Mexico skies, the International Space Station, a waning crescent Moon, and planet Mars for a moment shared this well-planned single field of view. From the photographer's location the sky had just begun to grow light, but the space station orbiting 400 kilometers above the Earth was already bathed in the morning sunlight. At 6:25am local time it took about a second to cross in front of the lunar disk moving right to left in the composited successive frames. At the time, Mars itself had already emerged from behind the Moon following its much anticipated lunar occultation. The yellowish glow of the Red Planet is still in the frame at the upper right, beyond the Moon's dark edge."
-  // hdurl: 'https://apod.nasa.gov/apod/image/2002/ISS_Moon_Mars_composite.jpg'
-  // media_type: 'image'
-  // service_version: 'v1'
-  // title: 'Trifecta at Twilight'
-  // url: 'https://apod.nasa.gov/apod/image/2002/ISS_Moon_Mars_composite1024.jpg'
+  const imgSrc = nasaData.hdurl || nasaData.url
 
   return (
-    <div className={styles.mainWrapper}>
-      <div className={styles.textWrapper}>
-        <p className={styles.title}>{nasaData.title}</p>
-        <div className={styles.dateWrapper}>
-          <p className={styles.dateType}>
-            Day - <span className={styles.dateSpan}>{day}</span>
-          </p>
-          |
-          <p className={styles.dateType}>
-            Month - <span className={styles.dateSpan}>{monthName}</span>
-          </p>
-          |
-          <p className={styles.dateType}>
-            Year - <span className={styles.dateSpan}>{year}</span>
-          </p>
+    <>
+      <div className={styles.mainWrapper}>
+        <div className={styles.textWrapper}>
+          <p className={styles.title}>{nasaData.title}</p>
+          <div className={styles.dateWrapper}>
+            <p className={styles.dateType}>
+              Day - <span className={styles.dateSpan}>{day}</span>
+            </p>
+            |
+            <p className={styles.dateType}>
+              Month - <span className={styles.dateSpan}>{monthName}</span>
+            </p>
+            |
+            <p className={styles.dateType}>
+              Year - <span className={styles.dateSpan}>{year}</span>
+            </p>
+          </div>
+          <p className={styles.explanation}>{nasaData.explanation}</p>
+          <div className={styles.btnWrapper}>
+            <button className={styles.newDateBtn}>Try another date</button>
+          </div>
         </div>
-        <p className={styles.explanation}>{nasaData.explanation}</p>
-        <div className={styles.btnWrapper}>
-          <button className={styles.newDateBtn}>Try another date</button>
+        <div className={styles.photoWrapper}>
+          {nasaData.media_type === 'video' ? (
+            <iframe
+              title={nasaData.title}
+              src={nasaData.url}
+              frameBorder="0"
+              allow="encrypted-media"
+              allowFullScreen
+              className={styles.media}
+            />
+          ) : (
+            <img
+              src={imgSrc}
+              alt={nasaData.title}
+              className={styles.media}
+              onClick={() => setModalOpen(true)}
+              style={{ cursor: 'pointer' }}
+            />
+          )}
         </div>
       </div>
-      <div className={styles.photoWrapper}>none</div>
-    </div>
+
+      {modalOpen && (
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setModalOpen(false)}>
+          <button
+            className={styles.modalClose}
+            onClick={() => setModalOpen(false)}>
+            ×
+          </button>
+          <img
+            src={imgSrc}
+            alt={nasaData.title}
+            className={styles.modalImage}
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
   )
 }
