@@ -1,6 +1,8 @@
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useMemo, useState, useRef, useEffect } from 'react'
 import { NasaContext } from '../../contexts/NasaContext'
 import { NavigationContext } from '../../contexts/NavigationContext'
+import { GlobalLoadingContext } from '../../contexts/GlobalLoadingContext'
+import GlobalLoader from '../UI/GlobalLoader'
 import styles from './Final.module.css'
 
 const MONTH_NAMES = [
@@ -19,10 +21,19 @@ const MONTH_NAMES = [
 ]
 
 export default function Final() {
+  const mainWrapperRef = useRef(null)
   const { selectedDate, setSelectedDate, nasaData, setNasaData } =
     useContext(NasaContext)
   const { goToPrev } = useContext(NavigationContext)
+  const { isGloballyLoading, setIsGloballyLoading } =
+    useContext(GlobalLoadingContext)
   const [modalOpen, setModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (mainWrapperRef.current) {
+      mainWrapperRef.current.classList.add(styles.mainWrapperVisible)
+    }
+  }, [])
 
   const { day, monthName, year } = useMemo(() => {
     if (!selectedDate) return { day: '', monthName: '', year: '' }
@@ -39,14 +50,24 @@ export default function Final() {
 
   const handlePickOtherDate = () => {
     console.log('button clicked')
-    goToPrev()
-    setSelectedDate(null)
-    setNasaData(null)
+
+    if (mainWrapperRef.current) {
+      mainWrapperRef.current.classList.add(styles.mainWrapperHidden)
+    }
+
+    setIsGloballyLoading(true)
+
+    setTimeout(() => {
+      goToPrev()
+      setIsGloballyLoading(false)
+      setSelectedDate(null)
+      setNasaData(null)
+    }, 3000)
   }
 
   return (
     <>
-      <div className={styles.mainWrapper}>
+      <div className={styles.mainWrapper} ref={mainWrapperRef}>
         <div className={styles.textWrapper}>
           <p className={styles.title}>{nasaData.title}</p>
           <div className={styles.dateWrapper}>
@@ -108,6 +129,8 @@ export default function Final() {
           />
         </div>
       )}
+
+      {isGloballyLoading && <GlobalLoader className={styles.loader} />}
     </>
   )
 }
