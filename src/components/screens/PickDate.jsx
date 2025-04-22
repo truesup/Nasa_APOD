@@ -83,6 +83,18 @@ export default function PickDate() {
     }, 3000)
   }
 
+  const isCompleteDate =
+    /^\d{1,2}$/.test(day) && /^\d{1,2}$/.test(month) && /^\d{4}$/.test(year)
+
+  const inputDate = isCompleteDate
+    ? new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`)
+    : null
+
+  const todayDate = new Date()
+  todayDate.setHours(0, 0, 0, 0)
+
+  const isFuture = inputDate ? inputDate > todayDate : false
+
   return (
     <>
       <div ref={mainWrapperRef} className={styles.wrapper}>
@@ -163,13 +175,7 @@ export default function PickDate() {
             </div>
             <button
               className={styles.submitBtn}
-              disabled={
-                !(
-                  /^\d{1,2}$/.test(day) &&
-                  /^\d{1,2}$/.test(month) &&
-                  /^\d{4}$/.test(year)
-                ) || isGloballyLoading
-              }>
+              disabled={!isCompleteDate || isFuture || isGloballyLoading}>
               Submit the date
             </button>
           </form>
