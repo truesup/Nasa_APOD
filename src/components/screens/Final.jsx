@@ -138,7 +138,12 @@ export default function Final() {
         </div>
       )}
 
-      {isGloballyLoading && <GlobalLoader className={styles.loader} />}
+      {isGloballyLoading && (
+        <GlobalLoader
+          className={styles.loader}
+          text="Archiving Extragalactic Data — Cataloguing Anomalous Findings…"
+        />
+      )}
     </>
   )
 }

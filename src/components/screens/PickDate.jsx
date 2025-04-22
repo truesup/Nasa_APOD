@@ -172,7 +172,12 @@ export default function PickDate() {
           </form>
         </div>
       </div>
-      {isGloballyLoading && <GlobalLoader className={styles.loader} />}
+      {isGloballyLoading && (
+        <GlobalLoader
+          className={styles.loader}
+          text="Restoring Vintage Satellite Imagery — Enhancing Resolution…"
+        />
+      )}
     </>
   )
 }

@@ -101,7 +101,12 @@ export default function HowTo() {
           </p>
         </div>
       </div>
-      {isGloballyLoading && <GlobalLoader className={styles.loader} />}
+      {isGloballyLoading && (
+        <GlobalLoader
+          className={styles.loader}
+          text="Retrieving Unique Celestial Artifacts — Digitizing Cosmic Catalogue…"
+        />
+      )}
     </>
   )
 }

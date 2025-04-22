@@ -57,7 +57,12 @@ export default function Greeting() {
           →
         </button>
       </div>
-      {isGloballyLoading && <GlobalLoader className={styles.loader} />}
+      {isGloballyLoading && (
+        <GlobalLoader
+          className={styles.loader}
+          text="Accessing NASA Archives — Preparing Visual Feed…"
+        />
+      )}
     </>
   )
 }
