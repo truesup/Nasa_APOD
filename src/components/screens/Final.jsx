@@ -88,7 +88,10 @@ export default function Final() {
           </div>
           <p className={styles.explanation}>{nasaData.explanation}</p>
           <div className={styles.btnWrapper}>
-            <button className={styles.newDateBtn} onClick={handlePickOtherDate}>
+            <button
+              className={styles.newDateBtn}
+              onClick={handlePickOtherDate}
+              disabled={isGloballyLoading}>
               Try another date
             </button>
           </div>

@@ -92,7 +92,6 @@
   outline: none;
   border-radius: 2px;
   transition: all 0.2s ease;
-  cursor: pointer;
 }
 .photoWrapper {
   overflow: hidden;
@@ -128,7 +127,6 @@
   color: white;
   background: transparent;
   border: none;
-  cursor: pointer;
   z-index: 1001;
 }
 @media (hover: hover) {

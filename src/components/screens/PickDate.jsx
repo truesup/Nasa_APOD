@@ -120,6 +120,7 @@ export default function PickDate() {
                   title="Enter 1 or 2 digits"
                   className={styles.input}
                   autoComplete="off"
+                  disabled={isGloballyLoading}
                   required
                 />
               </div>
@@ -137,6 +138,7 @@ export default function PickDate() {
                   title="Enter 1 or 2 digits"
                   className={styles.input}
                   autoComplete="off"
+                  disabled={isGloballyLoading}
                   required
                 />
               </div>
@@ -154,6 +156,7 @@ export default function PickDate() {
                   pattern="\d{4}"
                   className={styles.input}
                   autoComplete="off"
+                  disabled={isGloballyLoading}
                   required
                 />
               </div>
@@ -165,7 +168,7 @@ export default function PickDate() {
                   /^\d{1,2}$/.test(day) &&
                   /^\d{1,2}$/.test(month) &&
                   /^\d{4}$/.test(year)
-                )
+                ) || isGloballyLoading
               }>
               Submit the date
             </button>

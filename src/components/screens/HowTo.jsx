@@ -69,7 +69,8 @@ export default function HowTo() {
           <button
             ref={buttonRef}
             className={styles.roundBtn}
-            onClick={handleButtonClick}>
+            onClick={handleButtonClick}
+            disabled={isGloballyLoading}>
             →
           </button>
         </div>
